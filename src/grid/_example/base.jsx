@@ -90,7 +90,7 @@ export default function Base() {
               text={<div className='text-4'>标题文字</div>}
             />
             <GridItem
-              image={<imImageg className='img-5 img-vertical' src={imgUrl}/>}
+              image={<Image className='img-5 img-vertical' src={imgUrl}/>}
               text={<div className='text-4'>标题文字</div>}
             />
           </Grid>
