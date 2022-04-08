@@ -1,5 +1,5 @@
 import React, { FC, useMemo } from "react";
-import { Badge } from "tdesign-mobile-react";
+import { Badge, Image } from "tdesign-mobile-react";
 import withNativeProps, {
   NativeProps,
 } from "tdesign-mobile-react/_util/withNativeProps";
@@ -101,15 +101,11 @@ const GridItem: FC<GridItemProp> = (props) => {
   const gridItemImage = useMemo(
     () =>
       typeof image === "string" ? (
-        <img
-          src={image}
-          className={`${name}_image`}
-          style={{ width: "100%", height: "100%" }}
-        />
+        <Image src={image} />
       ) : (
         image
       ),
-    [image, name]
+    [image]
   );
 
   return withNativeProps(

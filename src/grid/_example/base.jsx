@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, GridItem } from 'tdesign-mobile-react';
+import { Grid, GridItem, Image } from 'tdesign-mobile-react';
 import TDemoBlock from '../../../site/mobile/components/DemoBlock';
 import TDemoHeader from '../../../site/mobile/components/DemoHeader';
 import './style/index.less'
@@ -14,15 +14,15 @@ export default function Base() {
         <div className='tdesign-grid-base'>
           <Grid gutter={0} column={3} border={true}>
             <GridItem
-              image={<img className='img-3 img-vertical' src={imgUrl}/>}
+              image={<Image className='img-3 img-vertical' src={imgUrl}/>}
               text={<div className='text-3'>标题文字</div>}
             />
             <GridItem
-              image={<img className='img-3 img-vertical' src={imgUrl}/>}
+              image={<Image className='img-3 img-vertical' src={imgUrl}/>}
               text={<div className='text-3'>标题文字</div>}
             />
             <GridItem
-              image={<img className='img-3 img-vertical' src={imgUrl}/>}
+              image={<Image className='img-3 img-vertical' src={imgUrl}/>}
               text={<div className='text-3'>标题文字</div>}
             />
           </Grid>
@@ -31,19 +31,19 @@ export default function Base() {
       <TDemoBlock title="" summary="一行四个">
         <Grid gutter={0}>
           <GridItem 
-            image={<img className='img-4 img-vertical' src={imgUrl}/>}
+            image={imgUrl}
             text={<div className='text-4'>标题文字</div>}
           />
           <GridItem
-            image={<img className='img-4 img-vertical' src={imgUrl}/>}
+            image={imgUrl}
             text={<div className='text-4'>标题文字</div>}
           />
           <GridItem
-            image={<img className='img-4 img-vertical' src={imgUrl}/>}
+            image={imgUrl}
             text={<div className='text-4'>标题文字</div>}
           />
           <GridItem
-            image={<img className='img-4 img-vertical' src={imgUrl}/>}
+            image={imgUrl}
             text={<div className='text-4'>标题文字</div>}
           />
         </Grid>
@@ -51,46 +51,46 @@ export default function Base() {
       <TDemoBlock title="" summary="一行五个">
         <Grid gutter={0} column={5}>
           <GridItem
-            image={<img className='img-5 img-vertical' src={imgUrl}/>}
+            image={<Image className='img-5 img-vertical' src={imgUrl}/>}
             text={<div className='text-4'>标题文字</div>}
           />
           <GridItem
-            image={<img className='img-5 img-vertical' src={imgUrl}/>}
+            image={<Image className='img-5 img-vertical' src={imgUrl}/>}
             text={<div className='text-4'>标题文字</div>}
           />
           <GridItem 
-            image={<img className='img-5 img-vertical' src={imgUrl}/>}
+            image={<Image className='img-5 img-vertical' src={imgUrl}/>}
             text={<div className='text-4'>标题文字</div>}
           />
           <GridItem
-            image={<img className='img-5 img-vertical' src={imgUrl}/>}
+            image={<Image className='img-5 img-vertical' src={imgUrl}/>}
             text={<div className='text-4'>标题文字</div>}
           />
           <GridItem
-            image={<img className='img-5 img-vertical' src={imgUrl}/>}
+            image={<Image className='img-5 img-vertical' src={imgUrl}/>}
             text={<div className='text-4'>标题文字</div>}
           />
         </Grid>
         <div className='tdesign-grid-5-horizontal'>
           <Grid gutter={0} column={5}>
             <GridItem
-              image={<img className='img-5 img-vertical' src={imgUrl}/>}
+              image={<Image className='img-5 img-vertical' src={imgUrl}/>}
               text={<div className='text-4'>标题文字</div>}
             />
             <GridItem
-              image={<img className='img-5 img-vertical' src={imgUrl}/>}
+              image={<Image className='img-5 img-vertical' src={imgUrl}/>}
               text={<div className='text-4'>标题文字</div>}
             />
             <GridItem
-              image={<img className='img-5 img-vertical' src={imgUrl}/>}
+              image={<Image className='img-5 img-vertical' src={imgUrl}/>}
               text={<div className='text-4'>标题文字</div>}
             />
             <GridItem
-              image={<img className='img-5 img-vertical' src={imgUrl}/>}
+              image={<Image className='img-5 img-vertical' src={imgUrl}/>}
               text={<div className='text-4'>标题文字</div>}
             />
             <GridItem
-              image={<img className='img-5 img-vertical' src={imgUrl}/>}
+              image={<imImageg className='img-5 img-vertical' src={imgUrl}/>}
               text={<div className='text-4'>标题文字</div>}
             />
           </Grid>
@@ -101,13 +101,13 @@ export default function Base() {
           <GridItem 
             description="说明文字" 
             layout="horizontal" 
-            image={<img className='img-2 img-horizontal' src={imgUrl}/>}
+            image={<Image className='img-2 img-horizontal' src={imgUrl}/>}
             text={<div className='text-2'>标题文字</div>}
           />
           <GridItem 
             description="说明文字" 
             layout="horizontal" 
-            image={<img className='img-2 img-horizontal' src={imgUrl}/>}
+            image={<Image className='img-2 img-horizontal' src={imgUrl}/>}
             text={<div className='text-2'>标题文字</div>}
           />
         </Grid>
@@ -116,17 +116,17 @@ export default function Base() {
         <Grid gutter={0} column={3}>
           <GridItem 
             description="说明文字" 
-            image={<img className='img-3 img-vertical' src={imgUrl}/>}
+            image={<Image className='img-3 img-vertical' src={imgUrl}/>}
             text={<div className='text-3'>标题文字</div>}
           />
           <GridItem 
             description="说明文字" 
-            image={<img className='img-3 img-vertical' src={imgUrl}/>}
+            image={<Image className='img-3 img-vertical' src={imgUrl}/>}
             text={<div className='text-3'>标题文字</div>}
           />
           <GridItem 
             description="说明文字" 
-            image={<img className='img-3 img-vertical' src={imgUrl}/>}
+            image={<Image className='img-3 img-vertical' src={imgUrl}/>}
             text={<div className='text-3'>标题文字</div>}
           />
         </Grid>
@@ -137,28 +137,28 @@ export default function Base() {
             badgeProps={{
                 dot: true,
             }}
-            image={<img className='img-4 img-vertical' src={imgUrl}/>}
+            image={<Image className='img-4 img-vertical' src={imgUrl}/>}
             text={<div className='text-4'>标题文字</div>}
           />
           <GridItem
             badgeProps={{
                 count: 8,
             }}
-            image={<img className='img-4 img-vertical' src={imgUrl}/>}
+            image={<Image className='img-4 img-vertical' src={imgUrl}/>}
             text={<div className='text-4'>标题文字</div>}
           />
           <GridItem
             badgeProps={{
                 count: 'new'
             }}
-            image={<img className='img-4 img-vertical' src={imgUrl}/>}
+            image={<Image className='img-4 img-vertical' src={imgUrl}/>}
             text={<div className='text-4'>标题文字</div>}
           />
           <GridItem
             badgeProps={{
                 count: '···'
             }}
-            image={<img className='img-4 img-vertical' src={imgUrl}/>}
+            image={<Image className='img-4 img-vertical' src={imgUrl}/>}
             text={<div className='text-4'>标题文字</div>}
           />
         </Grid>
