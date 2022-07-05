@@ -1,19 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { TdMessageProps } from './type';
-import { defaultProps, MessageThemeListEnum } from './constant';
+import { MessageThemeList, TdMessageProps } from './type';
+import { defaultProps } from './constant';
 import Message from './Message';
 
-const createMessage = (props, theme: MessageThemeListEnum) => {
+const createMessage = (props, theme?: MessageThemeList) => {
   const config = { ...defaultProps, ...props };
-  const el = document.createElement('div');
-  document.body.appendChild(el);
-  ReactDOM.render(<Message {...{ ...config, theme, el }} />, el);
+  let container = document.getElementById('#t-message');
+  if (container && ReactDOM.unmountComponentAtNode(container)) {
+    container.parentNode.removeChild(container);
+  }
+  container = document.createElement('div');
+  container.id = '#t-message';
+  document.body.appendChild(container);
+  ReactDOM.render(<Message {...{ ...config, theme, container }} />, container);
 };
 
 export default {
-  info: (props: TdMessageProps) => createMessage(props, MessageThemeListEnum.info),
-  success: (props: TdMessageProps) => createMessage(props, MessageThemeListEnum.success),
-  warning: (props: TdMessageProps) => createMessage(props, MessageThemeListEnum.warning),
-  error: (props: TdMessageProps) => createMessage(props, MessageThemeListEnum.error),
+  info: (props: TdMessageProps) => createMessage(props, 'info'),
+  success: (props: TdMessageProps) => createMessage(props, 'success'),
+  warning: (props: TdMessageProps) => createMessage(props, 'warning'),
+  error: (props: TdMessageProps) => createMessage(props, 'error'),
 };

@@ -61,6 +61,7 @@ export default function () {
           <Button
             theme="primary"
             variant="outline"
+            className="close-button"
             onClick={() => {
               setVisible(false);
             }}
@@ -72,6 +73,21 @@ export default function () {
         duration={0}
         content="这是一条带操作的消息通知"
         icon={<Icon name="notification" size={22} />}
+        onOpen={() => {
+          console.log('control onOpen');
+        }}
+        onOpened={() => {
+          console.log('control onOpened');
+        }}
+        onClose={() => {
+          console.log('control onClose');
+        }}
+        onClosed={() => {
+          console.log('control onClosed');
+        }}
+        onVisibleChange={(e) => {
+          console.log('control onVisibleChange', e);
+        }}
       />
     </div>
   );

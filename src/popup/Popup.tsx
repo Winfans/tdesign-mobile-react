@@ -1,109 +1,101 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
-import Overlay from 'tdesign-mobile-react/overlay';
-import { CSSTransition } from 'react-transition-group';
+import React, { FC, useState } from 'react';
 import classnames from 'classnames';
+import { useSpring, animated } from 'react-spring';
+import Overlay from '../overlay';
+import useDefault from '../_util/useDefault';
+import { PropagationEvent } from '../_util/withStopPropagation';
+import withNativeProps, { NativeProps } from '../_util/withNativeProps';
 import { TdPopupProps } from './type';
-import  {useSpring } from 'react-spring'
-import usePopupCssTransition from './hooks/usePopupCssTransition';
 import useConfig from '../_util/useConfig';
-import useDefault from 'tdesign-mobile-react/_util/useDefault';
-import withNativeProps from 'tdesign-mobile-react/_util/withNativeProps';
+import { popupDefaultProps } from './defaultProps';
 
-const getContentTransitionClassName = (placement) => {
-  if (placement === 'center') {
-    return `slide-zoom`;
-  }
-  return `slide-${placement}`;
-};
+export interface PopupProps extends TdPopupProps, NativeProps {}
 
-const defaultProps = {
-  placement: 'top',
-  showOverlay: true,
-  defaultVisible: false,
-  zIndex: 1500,
+enum PopupSourceEnum {
+  OVERLAY = 'overlay',
 }
 
-const Popup: FC<TdPopupProps> = (props) => {
+enum PlacementEnum {
+  TOP = 'top',
+  BOTTOM = 'bottom',
+  LEFT = 'left',
+  RIGHT = 'right',
+  CENTER = 'center',
+}
 
-  const {
-    children,
-    placement,
-    showOverlay,
-    visible,
-    defaultVisible,
-    zIndex,
-    onVisibleChange,
-  } = props;
+const Popup: FC<PopupProps> = (props) => {
+  const { children, placement, showOverlay, visible, defaultVisible, zIndex, overlayProps, onVisibleChange } = props;
 
   const { classPrefix } = useConfig();
 
   const name = `${classPrefix}-popup`;
 
-  // 判断是否受控
-  const isControl = visible !== undefined;
+  const [show, setShow] = useDefault<boolean, any>(visible, defaultVisible, onVisibleChange);
 
-  const [show, setShow] = useDefault<boolean, any>(
-    visible,
-    defaultVisible,
-    onVisibleChange
-  )
-console.log(show);
+  const [active, setActive] = useState(show);
 
-  const contentTransitionClassName = getContentTransitionClassName(placement);
+  const handleOverlayClick = () => {
+    setShow(false, PopupSourceEnum.OVERLAY);
+  };
 
-  const contentRef = useRef<HTMLDivElement>(null);
+  const { progress, opacity } = useSpring({
+    progress: show ? 0 : 100,
+    opacity: show ? 1 : 0,
+    onStart: () => {
+      setActive(true);
+    },
+    onRest: () => {
+      setActive(show);
+    },
+  });
 
-  const maskRef = useRef<HTMLDivElement>(null);
-
-  const maskCssTransitionState = usePopupCssTransition({ contentRef: maskRef, classPrefix: 'fade' });
-
-  const cssTransitionState = usePopupCssTransition({ contentRef, classPrefix: contentTransitionClassName });
+  const contentStyle = {
+    transform: progress.to((p) => {
+      if (placement === PlacementEnum.BOTTOM) {
+        return `translateY(${p}%)`;
+      }
+      if (placement === PlacementEnum.TOP) {
+        return `translateY(-${p}%)`;
+      }
+      if (placement === PlacementEnum.LEFT) {
+        return `translateX(-${p}%)`;
+      }
+      if (placement === PlacementEnum.RIGHT) {
+        return `translateX(${p}%)`;
+      }
+    }),
+    opacity: opacity.to((o) => {
+      if (placement === PlacementEnum.CENTER) {
+        return o;
+      }
+    }),
+  };
 
   const rootStyles = {
     zIndex,
+    display: active ? 'block' : 'none',
   };
 
-  const handleOverlayClick = () => {
-    setShow(false);
-  };
-
-  const {} = useSpring({})
-
-  // useEffect(() => {
-  //   visible && setCurrentVisible(visible);
-  // }, [visible]);
-
-  // useEffect(() => {
-  //   defaultVisible && setCurrentVisible(defaultVisible);
-  // }, [defaultVisible]);
-
-  // useEffect(() => {
-  //   // 非受控属性禁止触发onVisibleChange
-  //   isControl && onVisibleChange && onVisibleChange(currentVisible);
-  // }, [currentVisible, onVisibleChange, isControl]);
-
-  return withNativeProps(props,
+  return withNativeProps(
+    props,
     <div className={`${name}`} style={rootStyles}>
-      {
-        showOverlay && (
-          <Overlay 
-            visible={show} 
-            onOverlayClick={handleOverlayClick} 
-            disableBodyScroll={false}
-          />
-        )
-      }
-      <div
-        ref={contentRef}
-          className={classnames([`${name}--content`, `${name}--content-${placement}`])}
-      >
-        {children}
-      </div>
-    </div>
+      {showOverlay && (
+        <Overlay
+          visible={show}
+          onOverlayClick={handleOverlayClick}
+          disableBodyScroll={false}
+          stopPropagation={[PropagationEvent.CLICK, PropagationEvent.SCROLL]}
+          {...overlayProps}
+        />
+      )}
+      <animated.div className={classnames([`${name}--content`, `${name}--content-${placement}`])} style={contentStyle}>
+        {active && children}
+      </animated.div>
+    </div>,
   );
 };
 
-Popup.displayName = 'Popup'
-Popup.defaultProps = defaultProps
+Popup.displayName = 'Popup';
+Popup.defaultProps = popupDefaultProps;
 
 export default Popup;
